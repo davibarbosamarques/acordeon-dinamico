@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+  
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: white ;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.accordion{
+    width: 1000px;/*define o tamanho do acordeon*/
+    margin: 75px 10px 0px 10px; /*coloquei o top só para tirar lá de cima e nas laterais para no reponsivo não grudar na tela*/
+}
+
+.accordion #content a{
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    background-color: #f18519;/*cor da caixa principal*/
+    border-bottom: 1px solid aliceblue;/*linha de baixo da caixa principal*/
+    font-size: 1.4em;
+    padding-left: 1rem;
+    color: #664d03;/*cor da palavra na caixa principal*/
+    border-radius: 7px 7px 0px 0px;
+}
+.accordion-content{
+    font-size: 0.8rem;
+
+
+    /* Separei os paddings laterais para não gerar estranheza nas transições */
+    padding-left: 20px; 
+    padding-right: 20px;
+
+
+    background-color: #ff7f0033;
+    border: none;/*linha de baixo da caixa principal*/
+    margin-bottom: 0;
+    border-radius: 0px 0px 7px 7px;
+    
+    /* Para esse tipo de transição suave, é melhor usar height do que display,
+    porém não sei pq diabos o height não funcionou direito com o atributo visibility
+    então usei max-height e deu basicamente num resultado melhor*/
+   /* max-height: 0;*/
+    /* Defini que atributos deveriam ser alterados mais suavemente 
+    (note que especifiquei os paddings verticais, novamente para não chegar um efeito estranho) */
+    transition: height 0.5s,max-height 0.5s, padding-bottom 0.5s, padding-top 0.5s;
+}
+.accordion-content *{
+/* isso aqui foi importante colocar pq, como não estou display,
+o estado inicial de height 0 manteria o texto aparecendo */
+  visibility: hidden;
+/* transição aqui para o texto não sumir/aparecer antes da caixa diminuir/aumentar*/
+  transition: 0.1s;
+}
+.accordion #content a:hover ~ .accordion-content{
+    
+    /* 
+    novamente: não tenho ideia pq não funcionou direito com o
+    height, mas normalmente você colocaria height 0 ao invés de max-height 0
+    e height auto aqui, no lugar de max-height 1000
+    🤨🤨🤨
+
+    não precisa necessariamente ser 1000, qualquer número quando o suficiente para
+    não limitar o tamanho que você quer já está otimo
+    */
+    max-height: 1000px;
+
+    /* esse padding aqui poderia ser substituido por padding-bottom 20 e padding-top 20, porem assim fica com menos uma linha*/
+    padding: 20px;
+}
+.accordion #content a:hover ~ .accordion-content *{
+    visibility: visible;
+   
+}
+ @media (max-width: 500px){
+    .accordion-content *{
+        visibility: visible;
+        padding: 15px;
+    }
+} 
